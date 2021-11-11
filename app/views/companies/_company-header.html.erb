@@ -1,0 +1,17 @@
+<div class="game__header-container">
+  <%= image_tag company.cover, class: "game__cover" %>
+
+  <div class="game__header">
+    <div class="game__info">
+      <h1 class="game__name heading heading--sm"><%= company.name %></h1>
+      <span class="game__year content--xs"><%= "#{company.start_date&.year} - #{company.country}" %></span>
+    </div>
+  </div>
+      
+  <nav class="game-details__nav">
+      <%=link_to "Company details", company_path(company),
+                                 class: "game-details__nav-item #{"game-details__nav-item--active" unless show_critics}" %>
+      <%=link_to "Critics (#{company.approved_critics_count})", company_critics_path(company), 
+                                class: "game-details__nav-item #{"game-details__nav-item--active" if show_critics}" %>
+  </nav>
+</div>

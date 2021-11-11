@@ -1,0 +1,86 @@
+.card {
+  background-color: white;
+  display: flex;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.card-rating {
+  padding: 4px;
+  background-color: var(--secondary-300);
+  border-radius: 4px;
+  color: white;
+}
+
+.card-image {
+  width: 120px;
+  object-fit: contain;
+}
+
+.card-content {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.card-title {
+  font-weight: 400;
+  color: var(--gray-400);
+}
+
+.card-title:hover {
+  color: var(--primary-500);
+}
+
+.card-subtitle {
+  color: var(--gray-300);
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  color: var(--gray-300);
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.card-action {
+  height: 16px;
+  width: 16px;
+  color: var(--gray-300);
+}
+
+.companies {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-description {
+  height: calc(1.33 * 1em);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-container .input {
+  width: 100%;
+}
+
+.form-cover {
+  width: fit-content;
+  max-height: 100px;
+}

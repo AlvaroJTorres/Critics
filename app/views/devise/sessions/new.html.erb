@@ -1,0 +1,48 @@
+<section class="section--xs">
+  <div class="container">
+    <h2 class="heading heading--sm text-center mb-16">Sign in to your account</h2>
+    <div class="user-form">
+
+      <p class="overline text-center" >Continue with</p>
+      
+      <div class="social-buttons">
+        <%= link_to "Github", user_github_omniauth_authorize_path, method: :post, class: "btn btn--secondary" %>
+        <%= link_to "Twitter", user_twitter_omniauth_authorize_path, method: :post, class: "btn btn--secondary" %>
+      </div>
+
+      <span class="overline text-center" >Or</span>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form" }) do |f| %>
+      <div class="input">
+        <%= f.label :email, class: "content--xs overline" %>
+        <div class="input__container">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@mail.com", class: "input__content" %>
+        </div>
+      </div>
+
+      <div class="input">
+        <%= f.label :password, class: "content--xs overline" %>
+        <div class="input__container">
+          <%= f.password_field :password, autofocus: true, autocomplete: "current-password", placeholder: "******", class: "input__content" %>
+        </div>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="checkbox">
+          <%= f.check_box :remember_me, class: "checkbox__input" %>
+
+          <div class="checkbox__text-container">
+            <%= f.label :remember_me, class: "content--sm" %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= link_to "forgot your password", new_user_password_path %>
+
+      <%= f.submit "Log in", class:"btn btn--primary full-width" %>
+      <% end %>
+      <p class="content--sm text-center">Don't have an account?</p>
+      <%=link_to "Create an account", new_user_registration_path, class: "text-center" %>
+    </div>
+  </div>
+</section>

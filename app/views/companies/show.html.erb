@@ -1,0 +1,17 @@
+<section class="section--xs">
+  <div class="container">
+    <%= render partial: "company-header", locals: { show_critics: false, company: @company }%>
+    
+    <div class="game-details">
+      <p class="game-details__summary content--xs text-center">
+        <%= @company.description %>
+      </p>
+
+      <h3 class="heading heading--xs"><%= "Games (#{@company.games.count})" %></h3>
+      
+      <%= render partial: "games/card", collection: @company.games, as: :game %>
+
+      <%= link_to "Back", companies_path, class: "mx-auto" %>
+    </div>
+  </div>
+</section>

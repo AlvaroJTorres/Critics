@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Critics</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <nav class="critics-navbar">
+        <input type="checkbox" name="" id="navbar-checkbox">
+        <div class="critics-navbar__top">
+          <%= link_to root_path do %>
+            <img src="/images/critic-logo.png" alt="" class="critics-navbar__logo">
+          <% end %>
+          <label for="navbar-checkbox">
+            <img src="/images/icons/menu.svg" alt="" class="critics-navbar__open">
+            <img src="/images/icons/close.svg" alt="" class="critics-navbar__close">
+          </label>
+        </div>
+        <ul class="critics-navbar__menu">
+        <% if user_signed_in? %>
+          <li><p class="critics-navbar__message">Welcome <%= current_user.username %></p></li>
+          <li><%= link_to "Edit Profile", edit_user_registration_path, class: "critics-navbar__menu-item" %></li>
+          <li><%= link_to "Games", games_path, class: "critics-navbar__menu-item" %></li>      
+          <li><%= link_to "Companies", companies_path, class: "critics-navbar__menu-item" %></li>
+          <li><%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn--small btn--secondary"%></li>
+          <% else %>
+          <li><p class="critics-navbar__message">Sign in to start making critis games and companies</p></li>
+          <li><%= link_to "Games", games_path, class: "critics-navbar__menu-item" %></li>      
+          <li><%= link_to "Companies", companies_path, class: "critics-navbar__menu-item" %></li>
+          <li><%= link_to "Sign in", new_user_session_path, class: "btn btn--small btn--primary" %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <main>
+      <%= yield %>
+    </main>
+    <footer class="footer content--sm">
+      <p class="footer__text">
+        2021 - Codeable Critics
+      </p>
+      <p class="footer__text"> 
+        Build with love by 
+      </p>
+      <div class="footer__students">
+        <%= link_to "", target: "_blank", class: "footer__student" do %>
+          <%= image_tag "/images/icons/linkedin-icon.svg", class:"footer__student-icon"%>
+          <span class="footer__student-name">Student Name</span>
+        <% end %>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<section class="section--xs">
+  <div class="container">
+
+    <%= render partial: "game-header", locals: { show_critics: false, game: @game }%>
+
+      <div class="game-details">
+        <p class="game-details__summary content--xs text-center">
+          <%= @game.summary %>
+        </p>
+
+        <div class="game-details__relation">
+          <% if @game.genres.count > 1 %>
+            <p class="content--sm">Genres:</p>
+          <% else %>
+            <p class="content--sm">Genre:</p>
+          <% end %>
+          <ul class="game-details__relation-list">
+            <% @game.genres.each do |genre| %>
+            <li class="game-details__relation-item content--xs">
+              <%= genre.name %>
+              <% if policy(@game).remove_genre? %>
+                <%= link_to remove_genre_game_path(@game, genre_id: genre.id), method: :delete do %>
+                  <%= image_tag '/images/icons/close-white.svg' %>
+                <% end %>
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+        
+        <div class="game-details__relation">
+          <% if @game.platforms.count > 1 %>
+            <p class="content--sm">Platforms:</p>
+          <% else %>
+            <p class="content--sm">Platform:</p>
+          <% end %>
+          <ul class="game-details__relation-list">
+            <% @game.platforms.each do |platform| %>
+            <li class="game-details__relation-item content--xs">
+              <%= platform.name %>
+              <% if policy(@game).remove_platform? %>
+                <%= link_to remove_platform_game_path(@game, platform_id: platform.id), method: :delete do %>
+                  <%= image_tag '/images/icons/close-white.svg' %>
+                <% end %>
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div class="game-details__relation">
+          <% if @game.developers.count > 1 %>
+            <p class="content--sm">Developers:</p>
+          <% else %>
+            <p class="content--sm">Developer:</p>
+          <% end %>
+          <ul class="game-details__relation-list">
+            <% @game.developers.each do |developer| %>
+            <% involved_company = @game.involved_companies.find_by(company_id: developer.id) %>
+            <li class="game-details__relation-item content--xs">
+              <%= developer.name %>
+              <% if policy(involved_company).create? %>
+                <%= link_to game_involved_company_path(@game, 
+                                                      involved_company, developer: false),
+                                                      method: :patch do %>
+                  <%= image_tag '/images/icons/close-white.svg' %>
+                <% end %>
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div class="game-details__relation">
+          <% if @game.publishers.count > 1 %>
+            <p class="content--sm">Publishers:</p>
+          <% else %>
+            <p class="content--sm">Publisher:</p>
+          <% end %>
+          <ul class="game-details__relation-list">
+            <% @game.publishers.each do |publisher| %>
+            <% involved_company = @game.involved_companies.find_by(company_id: publisher.id) %>
+            <li class="game-details__relation-item content--xs">
+              <%= publisher.name %>
+              <% if policy(involved_company).create? %>
+                <%= link_to game_involved_company_path(@game, 
+                                                      involved_company, publisher: false),
+                                                      method: :patch do %>
+                  <%= image_tag '/images/icons/close-white.svg' %>
+                <% end %>
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <% if policy(@game).update? %>
+          <h3 class="heading heading--xs">Add relations</h3>
+          <%= form_with(url: add_genre_game_path(@game), html: { class: "game-details__relation-form" }) do |form| %>
+            <div class="select">
+              <%= form.collection_select :genre_id, Genre.all - @game.genres, :id, :name, { include_blank: "Select genre" }, { class: "select__input" } %>
+            </div>
+            <%= form.submit "Add Genre", class: "btn btn--primary btn--small" %>
+          <% end %>
+
+          <%= form_with(url: add_platform_game_path(@game), html: { class: "game-details__relation-form" }) do |form| %>
+            <div class="select">
+              <%= form.collection_select :platform_id, Platform.all - @game.platforms, :id, :name, { include_blank: "Select platform" }, { class: "select__input" } %>
+            </div>
+            <%= form.submit "Add Platform", class: "btn btn--primary btn--small" %>
+          <% end %>
+
+          <%= form_with(model: [@game, @involved_company], html: { class: "game-details__relation-form" }) do |form| %>
+            <%= form.hidden_field :developer, value: true %>
+            <div class="select">
+              <%= form.collection_select :company_id, Company.all - @game.developers, :id, :name, { include_blank: "Select company" }, { class: "select__input" } %>
+              <% if @involved_company.errors.any? %>
+                <span class="content--sm input__error-message">
+                  <%=@involved_company.errors.full_messages.join(", ") %>
+                </span>
+              <%end%>
+            </div>
+            <%= form.submit "Add Developer", class: "btn btn--primary btn--small" %>
+          <% end %>
+
+          <%= form_with(model: [@game, @involved_company], html: { class: "game-details__relation-form" }) do |form| %>
+            <%= form.hidden_field :publisher, value: true %>
+            <div class="select">
+              <%= form.collection_select :company_id, Company.all - @game.publishers, :id, :name, { include_blank: "Select company" }, { class: "select__input" } %>
+              <% if @involved_company.errors.any? %>
+                <span class="content--sm input__error-message">
+                  <%=@involved_company.errors.full_messages.join(", ") %>
+                </span>
+              <%end%>
+            </div>
+            <%= form.submit "Add Publisher", class: "btn btn--primary btn--small" %>
+          <% end %>
+        <% end %>
+
+        <%= link_to "Back", games_path, class: "mx-auto" %>
+      </div>
+
+  </div>
+</section>

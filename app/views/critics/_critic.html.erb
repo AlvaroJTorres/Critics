@@ -1,0 +1,22 @@
+<div class="critic">
+      <div class="critic__header">
+        <h4 class="content--lg"><%= critic.title%></h4>
+        <span class="content--sm gray-300">by <%= critic.user.username%></span>
+      </div>
+      <p><%= critic.body %></p>
+      <div class="critic__footer">
+        <span class="content--sm gray-300"><%= format_date(critic.created_at) %></span>
+        <div class="critic__actions">
+          <% if !critic.approved? %>
+            <% if policy(critic).update? %>
+              <%= critic_approve_link(@criticable, critic) %>
+            <% else %>
+              <span class="content--sm gray-300">Pending approval</span>
+            <% end %>
+          <% end %>
+          <% if policy(critic).destroy? %>
+            <%= critic_trash_link(@criticable, critic) %>
+          <% end %>
+        </div>
+      </div>
+    </div>

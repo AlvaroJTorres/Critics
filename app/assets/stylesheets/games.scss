@@ -1,0 +1,92 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.game__cover {
+  height: 160px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.game__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.game__header-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.game__rating {
+  padding: 8px;
+  color: white;
+  background-color: var(--secondary-300);
+  border-radius: 4px;
+}
+
+.game-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.game-details__nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.game-details__nav-item {
+  width: 140px;
+  padding: 8px;
+  text-align: center;
+  color: var(--gray-300);
+}
+
+.game-details__nav-item--active {
+  color: var(--gray-400);
+  border-bottom: 4px solid var(--primary-500);
+}
+
+.game-details__relation-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.game-details__relation-item {
+  display: flex;
+  background-color: var(--secondary-200);
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  padding: 2px 8px;
+  color: white;
+}
+
+.game-details__relation-form {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.game-details__relation-form .select__input {
+  min-width: auto;
+  max-width: 200px;
+}
+
+.game-details__relation-form .select {
+  flex-grow: 1;
+}

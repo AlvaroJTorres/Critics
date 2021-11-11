@@ -1,0 +1,23 @@
+<section class="section--xs">
+  <div class="container">
+    <h2 class="heading heading--sm text-center mb-16">Forgot your password?</h2>
+    <div class="user-form">
+      <p class="content--sm">Don't worry. You can recieve the instructions to reset your password</p>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { class: "form" }) do |f| %>
+        <div class="input">
+          <%= f.label :email, class: "content--xs overline" %>
+          <div class="input__container">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@mail.com", class: "input__content" %>
+          </div>
+          <% if resource.errors.messages[:email].any? %>
+            <span class="content--sm input__error-message">
+              <%=resource.errors.messages[:email].join(", ") %>
+            </span>
+          <%end%>
+        </div>
+
+        <%= f.submit "Send", class:"btn btn--primary full-width" %>
+      <% end %>
+    </div>
+  </div>
+</section>
