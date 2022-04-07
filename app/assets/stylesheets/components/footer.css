@@ -18,3 +18,7 @@
   gap: 4px;
   color: var(--gray-400);
 }
+
+.footer__student-name {
+  text-align: center;
+}
